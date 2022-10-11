@@ -51,6 +51,6 @@ server.post("/battle", (req, res) => {
 
 // Use default router
 server.use(router);
-server.listen(3002, () => {
+server.listen(4201, () => {
   console.log("JSON Server is running");
 });
