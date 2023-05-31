@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MonstersService } from './monsters.service';
 import { HttpClient } from '@angular/common/http';
-import { Monster } from '../interfaces/monster.interface';
+import { Monster, MonsterBattle } from '../interfaces/monster.interface';
 import { of } from 'rxjs';
 import { mockMonsters } from '../__mocks__/monsters';
 
@@ -95,6 +95,20 @@ describe('MonstersService', () => {
             'https://fsl-assessment-public-files.s3.amazonaws.com/assessment-cc-01/angry-snake.png',
         },
       ]);
+      done();
+    });
+  });
+
+  it('should post the monster battle', (done) => {
+    const response: Monster[] = [];
+    const mockData: MonsterBattle = {
+    monster1Id: "monster-1",
+    monster2Id: "monster-2"
+    }
+    jest.spyOn(http, 'post').mockReturnValue(of(response));
+
+    service.battle(mockData).subscribe((response) => {
+      expect(response).not.toBeNull();
       done();
     });
   });

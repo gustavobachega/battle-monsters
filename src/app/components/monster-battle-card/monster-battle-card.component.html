@@ -1,5 +1,16 @@
 <div>
     <mat-card class="battle-card-player centralized">
+        <img *ngIf="monster" class="monster-image" [src]="monster.imageUrl">
         <p class="title">{{ title }}</p>
+        <div *ngIf="monster" class="stats-container">
+            <label class="stat-label" for="hp">HP</label>
+            <progress class="progress-bar" [value]="monster.hp" max="100"></progress>
+            <label class="stat-label" for="attack">Attack</label>
+            <progress class="progress-bar" [value]="monster.attack" max="100"></progress>
+            <label class="stat-label" for="defense">Defense</label>
+            <progress class="progress-bar" [value]="monster.defense" max="100"></progress>
+            <label class="stat-label" for="speed">Speed</label>
+            <progress class="progress-bar" [value]="monster.speed" max="100"></progress>
+        </div>
     </mat-card>
 </div>

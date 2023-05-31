@@ -11,7 +11,7 @@ import { of } from 'rxjs';
 import { MonsterBattleCardComponent } from '../../components/monster-battle-card/monster-battle-card.component';
 import { MonsterListComponent } from '../../components/monster-list/monster-list.component';
 import { WinnerDisplayComponent } from '../../components/winner-display/winner-display.component';
-import { Monster } from '../../interfaces/monster.interface';
+import { Monster, MonsterWinner } from '../../interfaces/monster.interface';
 import { MonstersService } from '../../services/monsters.service';
 import { mockMonsters } from '../../__mocks__/monsters';
 import { BattleOfMonstersComponent } from './battle-of-monsters.component';
@@ -43,7 +43,9 @@ describe('BattleOfMonstersComponent', () => {
     monsterService = TestBed.inject(MonstersService);
 
     const response: Monster[] = mockMonsters.monsters;
+    const responseBattle: MonsterWinner = mockMonsters.battleWinner;
     jest.spyOn(monsterService, 'getAll').mockReturnValue(of(response));
+    jest.spyOn(monsterService, 'battle').mockReturnValue(of(responseBattle));
   });
 
   it('should create', () => {
@@ -74,5 +76,15 @@ describe('BattleOfMonstersComponent', () => {
     component.monsterSelected(null);
     const buttonStartBattle = fixture.nativeElement.querySelector('button');
     expect(buttonStartBattle.disabled).toBeTruthy();
+  });
+
+  it('should select a random monster', () => {
+    component.selectRandom(mockMonsters.monsters, mockMonsters.monsters[0])
+    expect(component.computer).not.toBeNull();
+  });
+
+  it('should start a battle', () => {
+    component.battle();
+    expect(monsterService.battle).toHaveBeenCalled();
   });
 });
